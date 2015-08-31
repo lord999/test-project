@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Default suite]">
+  <test name="Default test(failed)">
+    <classes>
+      <class name="com.example.tests.TestBase">
+        <methods>
+          <include name="setUp"/>
+          <include name="tearDown"/>
+        </methods>
+      </class> <!-- com.example.tests.TestBase -->
+      <class name="com.example.tests.AlsoGroupCreationTest">
+        <methods>
+          <include name="groupEmptyCreationTest"/>
+          <include name="groupNonEmptyCreationTest"/>
+        </methods>
+      </class> <!-- com.example.tests.AlsoGroupCreationTest -->
+      <class name="com.example.tests.GroupCreationTest">
+        <methods>
+          <include name="groupNonEmptyCreationTest"/>
+          <include name="groupEmptyCreationTest"/>
+        </methods>
+      </class> <!-- com.example.tests.GroupCreationTest -->
+      <class name="com.example.tests.ContactCreationTest">
+        <methods>
+          <include name="contactNonEmptyCreationTest"/>
+        </methods>
+      </class> <!-- com.example.tests.ContactCreationTest -->
+    </classes>
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->
