@@ -37,17 +37,14 @@ public class TestBase {
 		}
 	}
 
-	// -- dob
 	protected void returnToGroupPage() {
 		driver.findElement(By.linkText("group page")).click();
 	}
 
-	// -- dob
 	protected void submitGroupCreation() {
 		driver.findElement(By.name("submit")).click();
 	}
 
-	// -- dob
 	protected void addName() {
 		driver.findElement(By.linkText("add new")).click();
 	}
