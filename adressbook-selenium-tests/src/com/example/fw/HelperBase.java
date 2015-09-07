@@ -26,36 +26,17 @@ public abstract class HelperBase {
 		}
 	}
 
-	
-/*	public boolean isAlertPresent() {
-		try {
-			driver.switchTo().alert();
-			return true;
-		} catch (NoAlertPresentException e) {
-			return false;
-		}
-	}
-
-	public String closeAlertAndGetItsText() {
-		try {
-			Alert alert = driver.switchTo().alert();
-			String alertText = alert.getText();
-			if (acceptNextAlert) {
-				alert.accept();
-			} else {
-				alert.dismiss();
-			}
-			return alertText;
-		} finally {
-			acceptNextAlert = true;
-		}
-	}*/	 
-
 	protected void type(By locator, String text) {
 		if (text != null) {
+			System.out.println("text != null  " + text);			
 			driver.findElement(locator).clear();
 			driver.findElement(locator).sendKeys(text);
+		} 
+		if (text == null) {
+			System.out.println("text == null  " + text);
 		}
+		
+				
 
 	}
 

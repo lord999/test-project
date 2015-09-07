@@ -39,4 +39,26 @@ public class ContactHelper extends HelperBase {
 		click(By.linkText("home page"));
 	}
 
+	public void selectContactByIndex(int index) {
+		click(By.xpath("//input[@name='selected[]'][" + index + "]"));
+	}
+
+	public void modeContactEdit() {
+		driver.findElement(By.cssSelector("img[alt=\"Edit\"]")).click();
+	}
+
+	public void initContactRemove() {
+		driver.findElement(By.xpath("(//input[@name='update'])[2]")).click();
+	}
+
+	public void initContactModification(int index) {
+		selectContactByIndex(index);
+		modeContactEdit();
+		initContactEdit();
+	}
+
+	public void initContactEdit() {
+		driver.findElement(By.name("update")).click();
+	}
+
 }
