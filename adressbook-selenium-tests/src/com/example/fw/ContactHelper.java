@@ -1,6 +1,10 @@
 package com.example.fw;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import com.example.tests.ContactName;
 
@@ -40,7 +44,7 @@ public class ContactHelper extends HelperBase {
 	}
 
 	public void selectContactByIndex(int index) {
-		click(By.xpath("//input[@name='selected[]'][" + index + "]"));
+		click(By.xpath("//input[@name='selected[]'][" + index + 1 + "]"));
 	}
 
 	public void modeContactEdit() {
@@ -59,6 +63,38 @@ public class ContactHelper extends HelperBase {
 
 	public void initContactEdit() {
 		driver.findElement(By.name("update")).click();
+	}
+
+	public List<ContactName> getContacts() {
+		List<ContactName> contacts = new ArrayList<ContactName>();
+		List<WebElement> rows = getContactRows();
+		for (WebElement row : rows) {
+			ContactName contact = new ContactName(null, null, null, null, null, null, null, null, null, null, null,
+					null, null);
+
+			contact.lastname = getLastNameInRow(row);
+			if (contact.lastname == null) {
+				contact.lastname = "";
+			}
+			contact.firstname = getFirstNameInRow(row);
+			if (contact.firstname == null) {
+				contact.firstname = "";
+			}			
+			contacts.add(contact);
+		}
+		return contacts;
+	}
+
+	public String getFirstNameInRow(WebElement row) {
+		return row.findElement(By.xpath("./td[3]")).getText();
+	}
+
+	public String getLastNameInRow(WebElement row) {
+		return row.findElement(By.xpath("./td[2]")).getText();
+	}
+
+	private List<WebElement> getContactRows() {
+		return driver.findElements(By.xpath("//tr[@name='entry']"));
 	}
 
 }

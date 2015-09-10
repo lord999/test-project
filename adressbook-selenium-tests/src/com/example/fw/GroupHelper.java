@@ -39,7 +39,7 @@ public class GroupHelper extends HelperBase {
 	}
 
 	private void selectGroupByIndex(int index) {
-		click(By.xpath("//input[@name='selected[]'][" + (index+1) + "]"));
+		click(By.xpath("//input[@name='selected[]'][" + (index + 1) + "]"));
 	}
 
 	public void initGroupModification(int index) {
@@ -53,15 +53,15 @@ public class GroupHelper extends HelperBase {
 	}
 
 	public List<GroupData> getGroups() {
-        List<GroupData>  groups = new ArrayList<GroupData>();
-        List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
-        for (WebElement checkbox : checkboxes) {
-			GroupData group = new GroupData();
+		List<GroupData> groups = new ArrayList<GroupData>();
+		List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
+		for (WebElement checkbox : checkboxes) {
+			GroupData group = new GroupData(null, null, null);
 			String title = checkbox.getAttribute("title");
-        	group.name = title.substring("Selected (".length()-2, title.length() - ")".length());			
+			group.name = title.substring("Select (".length(), title.length() - ")".length());
 			groups.add(group);
 		}
-        return groups;
+		return groups;
 	}
 
 }
