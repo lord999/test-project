@@ -44,7 +44,7 @@ public class ContactHelper extends HelperBase {
 	}
 
 	public void selectContactByIndex(int index) {
-		click(By.xpath("//input[@name='selected[]'][" + index + 1 + "]"));
+		click(By.xpath("//input[@name='selected[]'][" + (index + 1) + "]"));
 	}
 
 	public void modeContactEdit() {
@@ -79,7 +79,7 @@ public class ContactHelper extends HelperBase {
 			contact.firstname = getFirstNameInRow(row);
 			if (contact.firstname == null) {
 				contact.firstname = "";
-			}			
+			}
 			contacts.add(contact);
 		}
 		return contacts;

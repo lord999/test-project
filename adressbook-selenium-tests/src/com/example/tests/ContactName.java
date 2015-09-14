@@ -35,7 +35,7 @@ public class ContactName implements Comparable<ContactName> {
 
 	@Override
 	public String toString() {
-		return "ContactName [firstname=" + firstname + "]";
+		return "ContactName [firstname=" + firstname + ", lastname=" + lastname + "]";
 	}
 
 	@Override
@@ -43,6 +43,7 @@ public class ContactName implements Comparable<ContactName> {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
+		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
 		return result;
 	}
 
@@ -60,6 +61,11 @@ public class ContactName implements Comparable<ContactName> {
 				return false;
 		} else if (!firstname.equals(other.firstname))
 			return false;
+		if (lastname == null) {
+			if (other.lastname != null)
+				return false;
+		} else if (!lastname.equals(other.lastname))
+			return false;
 		return true;
 	}
 
@@ -70,9 +76,17 @@ public class ContactName implements Comparable<ContactName> {
 		}
 		if (this.firstname == null) {
 			this.firstname = "";
-		}		
-		
+		}
+
+		if (other.lastname == null) {
+			other.lastname = "";
+		}
+		if (this.lastname == null) {
+			this.lastname = "";
+		}
+
 		return this.firstname.toLowerCase().compareTo(other.firstname.toLowerCase());
+
 	}
 
 }
