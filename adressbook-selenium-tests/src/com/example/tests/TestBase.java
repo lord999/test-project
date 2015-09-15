@@ -24,11 +24,11 @@ public class TestBase {
 	public void tearDown() throws Exception {
 		app.stop();
 	}
-	
+
 	@DataProvider(name = "randomValidContactGenerator")
 	public Iterator<Object[]> randomValidContactGenerator() {
 		List<Object[]> list = new ArrayList<Object[]>();
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 1; i++) {
 			ContactName contact = new ContactName(null, null, null, null, null, null, null, null, null, null, null,
 					null, null);
 			contact.firstname = generateRandowString();
@@ -47,28 +47,18 @@ public class TestBase {
 			return "test" + rnd.nextInt();
 		}
 	}
-	
+
 	@DataProvider(name = "randomValidGroupGenerator")
 	public Iterator<Object[]> randowValidGroupGenerator() {
 		List<Object[]> list = new ArrayList<Object[]>();
-		for (int i = 0; i < 5; i++) {
-			GroupData group = new GroupData(null, null, null);
-			group.name = generateRandowString();
-			group.header = generateRandowString();
-			group.footer = generateRandowString();
+		for (int i = 0; i < 1; i++) {
+			GroupData group = new GroupData().withName(generateRandowString())
+					.witHeader(generateRandowString()).withFooter(generateRandowString());
+
 			list.add(new Object[] { group });
 		}
 		// ....
 		return list.iterator();
 	}
-
-/*	public String generateRandowString() {
-		Random rnd = new Random();
-		if (rnd.nextInt(3) == 0) {
-			return "";
-		} else {
-			return "test" + rnd.nextInt();
-		}
-	}	*/
 
 }
