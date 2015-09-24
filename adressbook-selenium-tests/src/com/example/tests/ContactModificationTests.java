@@ -1,50 +1,40 @@
 package com.example.tests;
 
-import static com.example.fw.ContactHelper.MODIFICATION;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
-import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
+
+import com.example.utils.SortedListOf;;
 
 public class ContactModificationTests extends TestBase {
 
 	@Test
 	public void modifySomeContact() {
-		app.navigateTo().mainPage();
-
 		// save old state
 		List<ContactName> oldlist = app.getContactHelper().getContacts();
 
-		Random rnd = new Random();
-		int index = rnd.nextInt(oldlist.size());
+		SortedListOf<Integer> contactIdList = app.getContactHelper().getContactId();
 
-		if (index > 1) {
-			index = index - 1;
+		int[] qqq = new int[contactIdList.size()];
+
+		for (int i = 0; i < contactIdList.size(); i++) {
+			int bbb = contactIdList.get(i);
+			qqq[i] = bbb;
 		}
+		int index = (int) (Math.random() * contactIdList.size()) + 1;
+		int contactId = contactIdList.get(index - 1);
 
+		ContactName contact = new ContactName();
 		// actions
-		app.getContactHelper().selectContactByIndex(index);
-		app.getContactHelper().modeContactEdit();
-		ContactName contact = new ContactName(null, null, null, null, null, null, null, null, null, null, null, null,
-				null);
-		/*
-		 * contact.firstname = "firstname_00"; contact.lastname = "lastname_00";
-		 */
-		app.getContactHelper().fillContactForm(contact, MODIFICATION);
-		app.getContactHelper().initContactEdit();
-		app.getContactHelper().returnToContactPage();
+		app.getContactHelper().modifyContact(contactId, contact);
 
 		// save new save
 		List<ContactName> newlist = app.getContactHelper().getContacts();
 
 		// compare state
-		oldlist.remove(index);
-		oldlist.add(contact);
-		Collections.sort(oldlist);
-		Collections.sort(newlist);
-		AssertJUnit.assertEquals(newlist, oldlist);
+		assertThat(newlist, equalTo(((SortedListOf<ContactName>) oldlist)));
 	}
 }

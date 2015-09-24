@@ -1,9 +1,9 @@
 package com.example.tests;
 
 public class GroupName {
-	public String name;
-	public String header;
-	public String footer;
+	private String name;
+	private String header;
+	private String footer;
 
 	public GroupName(String groupname, String header, String footer) {
 		this.name = groupname;

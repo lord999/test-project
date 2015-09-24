@@ -1,7 +1,9 @@
 package com.example.tests;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+
+import java.util.List;
 
 import org.testng.annotations.Test;
 
@@ -11,21 +13,17 @@ public class GroupCreationTest extends TestBase {
 
 	@Test(dataProvider = "randomValidGroupGenerator")
 	public void testGroupCreationTestWithValidData(GroupData group) throws Exception {
-
 		// save old save
-		SortedListOf<GroupData> oldlist = app.getGroupHelper().getGroups();
+		List<GroupData> oldlist = app.getGroupHelper().getGroups();
 
 		// actions
 		app.getGroupHelper().createGroup(group);
 
 		// save new save
-		SortedListOf<GroupData> newlist = app.getGroupHelper().getGroups();
+		List<GroupData> newlist = app.getGroupHelper().getGroups();
 
 		// compare state
-		assertThat(newlist, equalTo(oldlist.withAdded(group)));
-
+		assertThat(newlist, equalTo(((SortedListOf<GroupData>) oldlist).withAdded(group)));
 	}
 
 }
-
-

@@ -18,32 +18,40 @@ public class GroupHelper extends HelperBase {
 
 	public SortedListOf<GroupData> getGroups() {
 		if (cachedGroups == null) {
-			rebuildCache();
+			rebuildCacheGroups();
 		}
 		return cachedGroups;
 	}
 
-	private void rebuildCache() {
+	private void rebuildCacheGroups() {
 		cachedGroups = new SortedListOf<GroupData>();
-		manager.navigateTo().groupPage();
+		manager.navigateTo().openGroupPage();
 		List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
 		for (WebElement checkbox : checkboxes) {
 			String title = checkbox.getAttribute("title");
 			String name = title.substring("Select (".length(), title.length() - ")".length());
+			if (name == null) {
+				name = "";
+			}
 			cachedGroups.add(new GroupData().withName(name));
 		}
-	}	
-	
-	
-
+	}
 
 	public GroupHelper createGroup(GroupData group) {
-		manager.navigateTo().groupPage();
+		manager.navigateTo().openGroupPage();
 		initGroupNewCreation();
 		fillGroupForm(group);
 		submitGroupCreation();
 		returnToGroupPage();
-		rebuildCache();
+		rebuildCacheGroups();
+		return this;
+	}
+
+	public GroupHelper deleteGroup(int index) {
+		selectGroupByIndex(index);
+		submitGroupDeletion();
+		returnToGroupPage();
+		rebuildCacheGroups();
 		return this;
 	}
 
@@ -52,22 +60,13 @@ public class GroupHelper extends HelperBase {
 		fillGroupForm(group);
 		submitGroupModification();
 		returnToGroupPage();
-		rebuildCache();
+		rebuildCacheGroups();
 		return this;
 	}
 
-	public GroupHelper deleteGroup(int index) {
-		selectGroupByIndex(index);
-		submitGroupDeletion();
-		returnToGroupPage();
-		rebuildCache();
-		return this;
-	}
-
-	// --------------------------------------------------------------
+	// --------------------------------------------------------------------------------------------------------------
 
 	public GroupHelper initGroupNewCreation() {
-		manager.navigateTo().groupPage();
 		click(By.name("new"));
 		return this;
 	}
@@ -95,15 +94,15 @@ public class GroupHelper extends HelperBase {
 		return this;
 	}
 
-	public GroupHelper initGroupModification(int index) {
-		selectGroupByIndex(index);
-		click(By.name("edit"));
-		return this;
-	}
-
 	public GroupHelper submitGroupModification() {
 		click(By.name("update"));
 		cachedGroups = null;
+		return this;
+	}
+
+	public GroupHelper initGroupModification(int index) {
+		selectGroupByIndex(index);
+		click(By.name("edit"));
 		return this;
 	}
 
